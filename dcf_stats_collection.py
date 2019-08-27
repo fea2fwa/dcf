@@ -34,8 +34,16 @@ with open("dcfstats.txt", "w+", encoding="UTF-8") as textoutput:
             bsObj = BeautifulSoup(html)
             bodydate = bsObj.findAll("span", {"class":"local-date"})
             bodytime = bsObj.findAll("span", {"class":"local-time"})
+            space_id_obj = bsObj.find_all("link", class_="lia-link-navigation hidden live-links")
             title = bsObj.title.get_text()
             title = title.strip(" - Dell Community")
+
+            space_id_obj = str(space_id_obj)
+            spacename = re.findall(r"board.id=.*&amp;",space_id_obj)
+            spacename = str(spacename)
+            splittext = spacename.split('&')
+            spacename = splittext[0]
+            spacename = spacename[11:]
 
             markanswered = "not-marked"
             if "解決済み:" in title:
@@ -72,7 +80,7 @@ with open("dcfstats.txt", "w+", encoding="UTF-8") as textoutput:
                     dtime1 = x.strftime('%Y/%m/%d %H:%M')
                 elif dummy == 1:
                     dtime2 = x.strftime('%Y/%m/%d %H:%M')
-                    textoutput.write(url+"\t"+title+"\t"+questioner+"\t"+dtime1+"\t"+dtime2+"\t"+markanswered)
+                    textoutput.write(url+"\t"+spacename+"\t"+title+"\t"+questioner+"\t"+dtime1+"\t"+dtime2+"\t"+markanswered)
                     for i in range(1, len(usernames)):
                         textoutput.write("\t"+usernames[i])
                     textoutput.write("\n")
@@ -81,5 +89,5 @@ with open("dcfstats.txt", "w+", encoding="UTF-8") as textoutput:
                 dummy += 1
 
             if dummy == 1:
-                textoutput.write(url+"\t"+title+"\t"+questioner+"\t"+dtime1+"\t"+"\t"+"\t"+"\n")
+                textoutput.write(url+"\t"+spacename+"\t"+title+"\t"+questioner+"\t"+dtime1+"\t"+"\t"+"\t"+"\n")
 
