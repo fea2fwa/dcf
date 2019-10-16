@@ -18,7 +18,6 @@ def joinedusers(bsObj):
             if questioner not in usernames.values():
                 new_id = len(usernames)
                 usernames[new_id] = questioner
-        print(usernames)
         
         return usernames
 
@@ -41,10 +40,7 @@ with open('url.txt', encoding='utf-8') as f:
         replyer = []
 
         for i in range(1, len(usernames)):
-            print(usernames[i])
             replyer += usernames[i]
-        
-        print(replyer)
 
         for body in bodytext:
             print(body.get_text()+"\n")
@@ -57,22 +53,18 @@ with open('url.txt', encoding='utf-8') as f:
                 dtime1 = x.strftime('%Y/%m/%d %H:%M')
             elif dummy == 1:
                 dtime2 = x.strftime('%Y/%m/%d %H:%M')
-                csvoutput.write(url+","+title+","+questioner+","+dtime1+","+dtime2)
+                csvoutput.write(url+"\t"+title+"\t"+questioner+"\t"+dtime1+"\t"+dtime2)
                 for i in range(1, len(usernames)):
-                    csvoutput.write(","+usernames[i])
+                    csvoutput.write("\t"+usernames[i])
                 csvoutput.write("\n")
             else: 
                 break
             dummy += 1
 
         if dummy == 1:
-             csvoutput.write(url+","+title+","+questioner+","+dtime1+",""\n")
-            
+             csvoutput.write(url+"\t"+title+"\t"+questioner+"\t"+dtime1+"\t"+"\n")
             
             
 
-
-csvoutput.close()
-output.close()
 
 

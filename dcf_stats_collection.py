@@ -60,6 +60,10 @@ with open("dcfstats.txt", "w+", encoding="UTF-8") as textoutput:
             if "RE:" in title:
                 title = title.strip("RE: ")
 
+            if "回复：" in title:
+                title = title.strip("回复： ")
+
+
             usernames = joinedusers(bsObj)
             
             try:
