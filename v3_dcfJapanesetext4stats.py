@@ -10,16 +10,19 @@ output=open("dcfJapanese.txt", "w+", encoding="UTF-8")
 def joinedusers(bsObj):
         questioners = []
         for questioner in bsObj.find_all("a", {"class":"lia-link-navigation lia-page-link lia-user-name-link"}):
-            questioners += questioner
+            questioner = questioner.get_text()
+            print(questioner)
+            questioners += str(questioner)
+            print(str(questioners))
 
         usernames = {}        
-        for questioner in questioners:
-            questioner = questioner.get_text()
-            if questioner not in usernames.values():
+        for participant in questioners:
+            #participant = participant.get_text()
+            if participant not in usernames.values():
                 new_id = len(usernames)
-                usernames[new_id] = questioner
+                usernames[new_id] = participant
         
-        return usernames
+        return questioners, usernames
 
 
 with open('url.txt', encoding='utf-8') as f:
@@ -35,11 +38,16 @@ with open('url.txt', encoding='utf-8') as f:
         if "解決済み:" in title:
             title = title.strip("解決済み: ")
 
-        usernames = joinedusers(bsObj)
-        questioner = usernames[0]
+        questioners, usernames = joinedusers(bsObj)
+        print(str(questioners)+"  "+str(usernames))
+        qid = len(questioners)-1
+        uid = len(usernames)-1
+        questioner = []
+        questioner = questioners[qid]
+        print("Questioner is"+questioner)
         replyer = []
 
-        for i in range(1, len(usernames)):
+        for i in range(uid-1, 0, -1):
             replyer += usernames[i]
 
         for body in bodytext:

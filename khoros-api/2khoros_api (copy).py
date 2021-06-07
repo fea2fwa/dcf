@@ -1,3 +1,5 @@
+import sys
+sys.path.append('..')
 import requests
 from auth.lsi import *
 

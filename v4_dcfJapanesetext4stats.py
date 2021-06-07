@@ -30,7 +30,10 @@ with open('url.txt', encoding='utf-8') as f:
         bodytext = bsObj.findAll("div", {"class":"lia-message-body-content"})
         bodydate = bsObj.findAll("span", {"class":"local-date"})
         bodytime = bsObj.findAll("span", {"class":"local-time"})
-        title = bsObj.title.get_text()
+        title = bsObj.title.get_text().rstrip()
+        title = title.strip("\n")
+        title = title.strip("\t")
+        title = title.strip("\t")
         title = title.strip(" - Dell Community")
         if "解決済み:" in title:
             title = title.strip("解決済み: ")
