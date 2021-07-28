@@ -2,3 +2,4 @@
 *.csv
 auth/
 .vscode/
+__pycache__
