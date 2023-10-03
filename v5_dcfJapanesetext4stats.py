@@ -57,7 +57,7 @@ with open('url.txt', encoding='utf-8') as f:
         summertime = int(1) #if it is in summertime, the value should be "1"
         for ddata, tdata in zip (bodydate, bodytime):
             dtsource = ddata.get_text()+" "+tdata.get_text()
-            x = datetime.datetime.strptime(dtsource.strip('\u200e'), '%m-%d-%Y %I:%M %p')+datetime.timedelta(hours=17-summertime)
+            x = datetime.datetime.strptime(dtsource.strip('\u200e'), '%m-%d-%Y %I:%M %p')+datetime.timedelta(hours=15-summertime)
             if dummy == 0:
                 dtime1 = x.strftime('%Y/%m/%d %H:%M')
             elif dummy == 1:
